@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>YouCode | Scrum Board</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      name="viewport"
+    />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- ================== BEGIN core-css ================== -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+      rel="stylesheet"
+    />
+    <link href="assets/css/vendor.min.css" rel="stylesheet" />
+    <link href="assets/css/default/app.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <!-- ================== END core-css ================== -->
+  </head>
+  <body>
+    <!-- BEGIN #app -->
+    <div id="app" class="app-without-sidebar position-relative w-100 my-2">
+      <!-- BEGIN #content -->
+      <div id="content" class="app-content main-style">
+        <div class="d-flex align-items-center mb-3">
+          <div>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
+              <li class="breadcrumb-item active">Scrum Board</li>
+            </ol>
+            <!-- BEGIN page-header -->
+            <h1 class="page-header mb-0">Scrum Board</h1>
+            <!-- END page-header -->
+          </div>
+
+          <div class="ms-auto" id="addTask">
+            <a
+              href="#modal-task"
+              data-bs-toggle="modal"
+              class="btn btn-success btn-rounded px-4 rounded-pill"
+              ><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> Add
+              Task</a
+            >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-4 col-lg-6">
+            <div class="panel panel-inverse">
+              <div class="panel-heading">
+                <h4 class="panel-title">To do (<span id="to-do-tasks-count">5</span>)</h4>
+              </div>
+              <div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="to-do-tasks">
+                <!-- TO DO TASKS HERE -->
+                <button class="text-start p-2 d-flex" >
+                  <div class="">
+                    <i class="fas fa-question-circle text-success fs-1 me-2"></i>
+                  </div>
+                  <div class="">
+                    <div class="fs-3 mb-1 title-box">     
+                      Keep allrequirements in one place
+                    </div>
+                    <div class="">
+                      <div class=" date-box">#1 created in 2022-10-08</div>
+                      <div
+                        class="mb-2 task-box text-break"
+                        title="There is hardly anything more frustrating than having to look for current requirements in tens of comments under the actual description or having to decide which commenter is actually authorized to change the requirements. The goal here is to keep all the up-to-date requirements and details in the main/primary description of a task. Even though the information in comments may affect initial criteria, just update this primary description accordingly."
+                      >
+                      Limiting text length with CSS is article, Iy manage your text display, set maximum character & line lengths, and incorporate the ellipsis property for a clean, readable web design. Ready to become a CSS truncation expert? Let’s get started!
+                      </div>
+                    </div>
+                    <div class="">
+                      <span class="btn btn-primary" id="type-level">High</span>
+                      <span class="btn btn-outline-secondary" id="priority-Type">Feature</span>
+                    </div>
+                  </div>
+                </button>
+                
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-6">
+            <div class="panel panel-inverse">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  In Progress (<span id="in-progress-tasks-count">4</span>)
+                </h4>
+              </div>
+              <button class="text-start d-flex p-2">
+                <div class="">
+                  <i class="fas fa-spinner fa-spin text-success  fs-1 me-2"></i>
+                </div>
+                <div class="">
+                  <div class="fs-3 mb-1 title-box">
+                  
+                    Keep all the updated requirements in one place
+                  </div>
+                  <div class="">
+                    <div class="date-box">#2 created in 2022-10-08</div>
+                    <div
+                      class="mb-2 task-box text-break"
+                      title="There is hardly anything more frustrating than having to look for current requirements in tens of comments under the actual description or having to decide which commenter is actually authorized to change the requirements. The goal here is to keep all the up-to-date requirements and details in the main/primary description of a task. Even though the information in comments may affect initial criteria, just update this primary description accordingly."
+                    >
+                    Limiting text length with CSS used to require dirty hack that made you want to take a shower afterwards. Well, get ready to be squeaky clean with a couple of different modern CSS techniques. In this article, I’m going to do a dive deep into the world of limiting text length with just CSS. We’ll explore how to effectively manage your text display, set maximum character & line lengths, and incorporate the ellipsis property for a clean, readable web design. Ready to become a CSS truncation expert? Let’s get started!
+                    </div>
+                  </div>
+                  <div class="">
+                    <span class="btn btn-primary" id="type-level">High</span>
+                      <span class="btn btn-outline-secondary">Feature</span>
+                  </div>
+                </div>
+              </button>
+              <div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="in-progress-tasks">
+                <!-- IN PROGRESS TASKS HERE -->
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-6">
+            <div class="panel panel-inverse">
+              <div class="panel-heading">
+                <h4 class="panel-title">Done (<span id="done-tasks-count">4</span>)</h4>
+              </div>
+              <button class="text-start p-1 d-flex">
+                <div class="">
+                  <i class="fas fa-check-circle text-success fs-1 me-2"></i>
+                </div>
+                <div class="">
+                  <div class="fs-3 mb-1 title-box">
+                    Keep all the updated requirements in one place
+                  </div>
+                  <div class="">
+                    <div class="date-box">#3 created in 2022-10-08</div>
+                    <div
+                      class="mb-2 task-box text-break"
+                      title="There is hardly anything more frustrating than having to look for current requirements in tens of comments under the actual description or having to decide which commenter is actually authorized to change the requirements. The goal here is to keep all the up-to-date requirements and details in the main/primary description of a task. Even though the information in comments may affect initial criteria, just update this primary description accordingly."
+                    >
+                    to require you want to take a shower afterwards. Well, get ready to be squeaky clean with a couple of different modern CSS techniques. In this article, I’m going to do a dive deep into the world of limiting text length with just CSS. We’ll explore how to effectively manage your text display, set maximum character & line lengths, and incorporate the ellipsis property for a clean, readable web design. Ready to become a CSS truncation expert? Let’s get started!
+                    </div>
+                  </div>
+                  <div class="">
+                    <span class="btn btn-primary">High</span>
+                      <span class="btn btn-outline-secondary">Feature</span>
+                  </div>
+                </div>
+              </button>
+              <div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="done-tasks">
+                <!-- DONE TASKS HERE -->
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END #content -->
+
+      <!-- BEGIN scroll-top-btn -->
+      <a
+        href="javascript:;"
+        class="btn btn-icon btn-circle btn-success btn-scroll-to-top"
+        data-toggle="scroll-to-top"
+        ><i class="fa fa-angle-up"></i
+      ></a>
+      <!-- END scroll-top-btn -->
+    </div>
+    <!-- END #app -->
+
+    <!-- TASK MODAL -->
+    <div class="modal fade" id="modal-task">
+      <!-- Modal content goes here -->
+    </div>
+
+
+
+
+
+
+
+
+    <form id="form" class="col-4 bg-white p-3 py-4 rounded-3 col-lg-4 col-md-11 col-sm-11 col-11 position-absolute top-50 start-50 translate-middle">
+
+      <div class="container bg-white">
+        <div class="d-flex justify-content-between">
+            
+          <div class="col">
+                <p class="text-capitalize fw-bold" >add task</p>
+            </div>
+    
+            <div class="col text-end">
+                <div role="button" tabindex="0" id="x-mark"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+    
+        </div>
+      </div>
+    <!--line-->
+      <hr>
+    
+    
+    
+    <!--pass/ check . submit-->
+      <div class="mb-3">
+        <label for="exampleInputText" class="form-label text-capitalize" id="title-name">title</label>
+        <input type="text" class="form-control" id="inputTitle" aria-describedby="title" >
+      
+      </div>
+    
+    
+    
+    
+    <!--type section-->
+    
+    <label for="exampleInputEmail1" class="form-label text-capitalize py-2">type</label>
+    <div class="form-check">
+      
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" >
+      <label class="form-check-label py-1" for="flexRadioDefault1">
+        Feature
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked >
+      <label class="form-check-label py-1" for="flexRadioDefault">
+        Bug
+      </label>
+    </div>
+    
+    
+    
+    
+    
+    <!--select section-->
+    
+    <!--priority-->
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label text-capitalize py-1">priority</label>
+    <select class="form-select form-select-sm mb-2" aria-label="Small select example" >
+      <option selected id="selected-option-pri">Please Select</option>
+      <option value="1">Height</option>
+      <option value="2">Medium</option>
+      <option value="3">Low</option>
+    </select>
+    </div>
+    
+    
+    
+    <!--status-->
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label text-capitalize pb-1">Status</label>
+    <select id="selected-option-stu" class="form-select form-select-sm" aria-label="Small select example" >
+      <option selected class="selected-option-stu">Please Select</option>
+      <option value="1">Do</option>
+      <option value="2">In progress</option>
+      <option value="3">Done</option>
+    </select>
+    </div>
+    
+    
+    
+    
+     <div class="mb-3">
+      <label for="dateInput" class="form-label text-capitalize py-1">Date</label>
+                    <input type="date" id="dateInput" name="dateInput" class="form-control form-control-sm mb-2" >
+                </div>
+    
+    
+      
+    
+    
+     <!--buttons cancel section-->
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!--description section-->
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+          <textarea class="form-control" id="description" rows="6" ></textarea>
+        </div>
+    
+        
+    <!-- <hr> -->
+        <!--title section-->
+
+
+        <!-- <div class="modal-footer">
+          <a href="#" class="btn btn-white " data-bs-dismiss="modal">Cancel</a>
+          <button type="submit" name="delete" class="btn btn-danger task-action-btn" id="task-delete-btn">Delete</a>
+          <button type="submit" name="update" class="btn btn-warning task-action-btn" id="task-update-btn">Update</a>
+          <button type="submit" name="save" class="btn btn-primary task-action-btn" id="task-save-btn">Save</button>
+        </div> -->
+
+
+    <div class="input-group input-group-sm mb-3 w-100 d-flex justify-content-end gap-3">
+      <span class="btn btn-outline-secondary py-2 px-3" id="inputGroup-sizing-sm">Cancel</span>
+      <button type="submit" name="delete" class="btn btn-danger task-action-btn" id="task-delete-btn">Delete</a>
+        <button type="submit" name="update" class="btn btn-warning task-action-btn" id="task-update-btn" onclick="showItem()">Update</a>
+      <button type="submit" name="save" class="btn btn-primary task-action-btn" id="task-save-btn" onclick="addTask(event)">Save</button>
+     
+    </div>
+    
+    
+   
+    
+    
+    
+    </form>
+       
+
+
+
+
+
+
+    <!-- ================== BEGIN core-js ================== -->
+    <script src="assets/js/script.js"></script>
+    <!-- ================== END core-js ================== -->
+  </body>
+</html>
