@@ -1,242 +1,180 @@
-let countId;
-function getAllLocalStorageItemsAsArray() {
-  const itemsArray = [];
-
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    const value = localStorage.getItem(key);
 
 
-    const parsedValue = JSON.parse(value);
-    itemsArray.push({ key: key, value: parsedValue });
+///--------------------le debut-----------------------------------------///
 
+function editTask(key) {
+  const taskData = JSON.parse(localStorage.getItem(key));
+  if (taskData) {
+      // Populate form fields with task data
+      document.getElementById("inputTitle").value = taskData.title;
+      document.getElementById("description").value = taskData.description;
+      document.getElementById("dateInput").value = taskData.date;
+      document.querySelector(`input[name="flexRadioDefault"][value="${taskData.radioValue1}"]`).checked = true;
+
+      // Show the "Save Changes" button and store the key for updating
+      document.getElementById("task-update-btn").style.display = "block";
+      document.getElementById("task-save-btn").style.display = "none";
+
+      // Attach the save function to the "Save Changes" button
+      document.getElementById("task-update-btn").onclick = function () {
+          saveUpdatedTask(key);
+          cleanForm()
+      };
   }
-
-  return itemsArray;
 }
 
-// Usage
-function createCards(){
+
+function updateTask(key) {
+  const updatedTask = {
+      title: document.getElementById("inputTitle").value,
+      description: document.getElementById("description").value,
+      date: document.getElementById("dateInput").value,
+      radioValue1: document.querySelector('input[name="flexRadioDefault"]:checked').value,
+  };
+
+  localStorage.setItem(key, JSON.stringify(updatedTask));
+  createCards();
+
+  // Reset form and buttons
+  cleanForm();
+  document.getElementById("task-update-btn").style.display = "none";
+  document.getElementById("task-save-btn").style.display = "block";
+  alert("Task updated successfully");
+}
+
+let countId = 0;
+
+// Function to get all tasks from localStorage as an array
+function getAllLocalStorageItemsAsArray() {
+    const itemsArray = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key);
+        try {
+            const parsedValue = JSON.parse(value);
+            itemsArray.push({ key: key, value: parsedValue });
+        } catch (e) {
+            console.error("Error parsing JSON:", e);
+        }
+    }
+    return itemsArray;
+}
+
+// Function to create cards
+function createCards() {
     const allItemsArray = getAllLocalStorageItemsAsArray();
-// console.log(allItemsArray[0])
+    let html = "";
 
-let html = "";
-const container = document.getElementById('to-do-tasks');
-const containerDoing = document.getElementById('in-progress-tasks')
-const containerDone = document.getElementById('done-tasks')
+    const containerToDo = document.getElementById('to-do-tasks');
+    const containerDoing = document.getElementById('in-progress-tasks');
+    const containerDone = document.getElementById('done-tasks');
 
+    // Clear each container 
+    containerToDo.innerHTML = "";
+    containerDoing.innerHTML = "";
+    containerDone.innerHTML = "";
 
-// if(selectedValueStu = 1)
+    // Loop in all tasks and make theme in thir card task
+    allItemsArray.forEach((item) => {
+        const task = item.value;
+        const taskHTML = `
+            <button class="text-start p-2 d-flex">
+                <div class="">
+                    <i class="fas ${task.optionStatus === "1" ? 'fa-question-circle' : task.optionStatus === "2" ? 'fa-spinner fa-spin' : 'fa-check-circle'} text-success fs-1 me-2"></i>
+                </div>
+                <div>
+                    <div class="fs-3 mb-1 title-box">${task.title}</div>
+                    <div class="date-box">Created on: ${task.date}</div>
+                    <div class="mb-2 task-box">${task.description}</div>
+                    <div>
+                        <span class="btn btn-primary">${task.optionFeatureBug}</span>
+                        <span class="btn btn-outline-secondary">Feature</span>
+                        
+                        
+                        
+                        </span>
+                        
 
-
-
-
-allItemsArray.forEach((item) => {
-  html += `
-  <button class="text-start p-2 d-flex" >
-                  <div class="">
-                    <i class="fas fa-question-circle text-success fs-1 me-2"></i>
-                  </div>
-                  <div class="">
-                    <div class="fs-3 mb-1 title-box">     
-                    ${item.value.title}
                     </div>
-                    <div class="">
-                      <div class=" date-box">created in ${item.value.date}</div>
-                      <div
-                        class="mb-2 task-box text-break"
-                        title="There is hardly anything more frustrating than having to look for current requirements in tens of comments under the actual description or having to decide which commenter is actually authorized to change the requirements. The goal here is to keep all the up-to-date requirements and details in the main/primary description of a task. Even though the information in comments may affect initial criteria, just update this primary description accordingly."
-                      >
-                      ${item.value.description}
-                      </div>
-                    </div>
-                    <div class="">
-                      <span class="btn btn-primary">${item.value.radioValue1}</span>
-                      <span class="btn btn-outline-secondary">Feature</span>
-                    </div>
-                  </div>
-                </button>
-  `;
-});
+                </div>
+            </button>
+        `;
 
-// Append the generated HTML to the itemList div
-container.innerHTML = html;
-}
-createCards()
-
-
-// adding ===========================================
-
-function selectedType(){
-
-    const selectedRadio = document.querySelector('input[name="flexRadioDefault"]:checked').value;
-// let selectValue = selectedRadio.value;
-console.log(selectedRadio);
-
-    let levelType = document.getElementById('type-level').value;
-    levelType.value = 'selectedRadio';
-    console.log(levelType)
+        if (task.optionStatus === "1") {
+            containerToDo.innerHTML += taskHTML;
+        } else if (task.optionStatus === "2") {
+            containerDoing.innerHTML += taskHTML;
+        } else if (task.optionStatus === "3") {
+            containerDone.innerHTML += taskHTML;
+        }
+    });
 }
 
+// Function to clear the form after submitting a task
+function cleanForm() {
+    document.getElementById("inputTitle").value = '';
+    document.querySelector('input[name="flexRadioDefault"]:checked').checked = false;
+    document.getElementById("selected-option-pri").value = '';
+    document.getElementById("selected-option-stu").value = '';
+    document.getElementById("dateInput").value = '';
+    document.getElementById("description").value = '';
+}
 
+// Function to add a new task
+function addTask() {
+    let titleValue = document.getElementById("inputTitle").value;
+    const selectedRadioValue = document.querySelector('input[name="flexRadioDefault"]:checked').value;
+    let selectedValuePro = document.getElementById("selected-option-pri").value;
+    let selectedValueStu = document.getElementById("selected-option-stu").value;
+    let dateInput = document.getElementById("dateInput").value;
+    let description = document.getElementById("description").value;
+
+    const task = {
+        title: titleValue,
+        optionFeatureBug: selectedRadioValue,
+        optionPripority: selectedValuePro,
+        optionStatus: selectedValueStu,
+        description: description,
+        date: dateInput,
+        createdAt: new Date().toISOString()
+    };
+
+    let taskString = JSON.stringify(task);
+    localStorage.setItem(`task_${countId}`, taskString);
+    countId++;
+    createCards();
+    cleanForm();
+}
+
+// Event listeners for toggling form visibility and adding tasks
 document.getElementById("form").style.display = "none";
 
 document.getElementById("addTask").addEventListener("click", function () {
-  document.getElementById("form").style.display = "block";
-  document.getElementById("task-update-btn").style.display = "none";
-  document.getElementById("task-delete-btn").style.display = "none";
-  document.getElementById("app").style.filter = "blur(7px)";
-  
+    document.getElementById("form").style.display = "block";
+    document.getElementById("app").style.filter = "blur(7px)";
+    document.getElementById("task-update-btn").style.display = "none";
+    document.getElementById("task-delete-btn").style.display = "none";
 });
 
-document
-  .getElementById("inputGroup-sizing-sm")
-  .addEventListener("click", function () {
+document.getElementById("inputGroup-sizing-sm").addEventListener("click", function () {
     document.getElementById("form").style.display = "none";
     document.getElementById("app").style.filter = "none";
-  });
-
-document.getElementById("x-mark").addEventListener("click", function () {
-  document.getElementById("form").style.display = "none";
-  document.getElementById("app").style.filter = "none";
 });
 
-document.getElementById('task-save-btn').addEventListener('click', function(){
+document.getElementById("x-mark").addEventListener("click", function () {
+    document.getElementById("form").style.display = "none";
+    document.getElementById("app").style.filter = "none";
+   
+});
+
+document.getElementById('task-save-btn').addEventListener('click', function () {
+    addTask();
     document.getElementById("form").style.display = "none";
     document.getElementById("app").style.filter = "none"
-    // selectedType();
-})
-
-
-// last option for validation
-
-// sweet alert
-// let titleValue = document.getElementById('input-title').value;
-// function formValidation(){
-//     if(titleValue == ''){
-//         alert("Please fill the forme!");
-//     }
-// }
-
-
-     function cleanForm() {
-        document.getElementById("inputTitle").value = '';
-        document.getElementById("flexRadioDefault1").checked = false;
-        document.getElementById("flexRadioDefault2").checked = false;
-        document.getElementById("selected-option-pri").value = '';
-        document.getElementById("selected-option-stu").value = '';
-        document.getElementById("dateInput").value = '';
-        document.getElementById("to-do-tasks-count").value = '';
-        document.getElementById("description").value = '';
-    }
-
-
-
-let tasks = [];
-function addTask() {
-
-  let titleValue = document.getElementById("inputTitle").value;
-  //type : bugs or feature
-//   let radioValue1 = document.getElementById("flexRadioDefault1").checked;
-//   let radioValue2 = document.getElementById("flexRadioDefault2").checked;
-  const selectedRadioValue = document.querySelector('input[name="flexRadioDefault"]:checked').value;
-  //status : do or doing or done
-  let selectedValuePro = document.getElementById("selected-option-pri").value;
-  let selectedValueStu = document.getElementById("selected-option-stu").value;
-
-  let dateInput = document.getElementById("dateInput").value;
-  let tasksCount = document.getElementById("to-do-tasks-count").value;
-  let description = document.getElementById("description").value;
-
-
-
-alert(selectedRadioValue);
-alert("do/doin/done" + selectedValueStu);
-
-
-
-
-
-
-  const task = {
-    title: titleValue,
-    // optionFeature: flexRadioDefault1,
-    optionFeatureBug :selectedRadioValue,
-    // function selectedType(){
-
-    //     const selectedRadio = document.querySelector('input[name="flexRadioDefault"]:checked').value;
-    // // let selectValue = selectedRadio.value;
-    // console.log(selectedRadio);
     
-    //     // let levelType = document.getElementById('type-level').value;
-    //     // levelType.innerHTML = 'selectedRadio';
-    //     // console.log(levelType)
-    // }
-    // ,
-    // optionbug: radioValue2,
-    optionPripority: selectedValuePro,
-    optionStatus: selectedValueStu,
-    description : description,
-    date: dateInput,
-    tasksCount: tasksCount,
-    createdAt: new Date().toISOString(), // time
-  };
-  tasks.push(task);
+});
 
-  let taskString = JSON.stringify(task);
-  localStorage.setItem(`tasks${countId}`, taskString);
-  countId = countId + 1; 
-  createCards()
-  localStorage.clear()
-  alert("your infos added to local  storage");
-cleanForm();
-}
+createCards();
 
 
-
-// console.log(countId)
-
-
-//---------------------------------not mine-------------------------------
-
-// document.getElementById('task-save-btn').addEventListener('click', function (){
-//     let counter = 1;
-//     counter++;
-
-// })
-// document.getElementById('to-do-tasks-count').innerHTML = 'counter';
-// function addTask(taskText) {
-//     const task = {
-//         id: Date.now().toString(),
-//         text: taskText,
-//         completed: false
-//     };
-//     tasks.push(task);
-//     renderTasks();
-
-//     // SweetAlert pour confirmer l'ajout
-//     Swal.fire({
-//         title: 'Task Added!',
-//         text: `You have added a new task: "${taskText}"`,
-//         icon: 'success',
-//         confirmButtonText: 'Nice!'
-//     });
-// }
-//---------------------------------not mine-------------------------------
-
-// // local storage
-// function addItem (){
-//     let itemName = document.getElementById('title-name').value;
-//     let itemValue = document.getElementById('inputTitle').value;
-
-//     localStorage.setItem(itemName, itemValue);
-//     alert("your infos added to local  storage");
-// }
-
-// function showItem(){
-
-//     let itemName = document.querySelector('#title-name').value;
-
-//     alert('Item Value = ' + localStorage.getItem(itemName));
-// }
-// // tasks.push(task);
+console.log("hello world")

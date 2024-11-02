@@ -90,30 +90,7 @@
                   In Progress (<span id="in-progress-tasks-count">4</span>)
                 </h4>
               </div>
-              <button class="text-start d-flex p-2">
-                <div class="">
-                  <i class="fas fa-spinner fa-spin text-success  fs-1 me-2"></i>
-                </div>
-                <div class="">
-                  <div class="fs-3 mb-1 title-box">
-                  
-                    Keep all the updated requirements in one place
-                  </div>
-                  <div class="">
-                    <div class="date-box">#2 created in 2022-10-08</div>
-                    <div
-                      class="mb-2 task-box text-break"
-                      title="There is hardly anything more frustrating than having to look for current requirements in tens of comments under the actual description or having to decide which commenter is actually authorized to change the requirements. The goal here is to keep all the up-to-date requirements and details in the main/primary description of a task. Even though the information in comments may affect initial criteria, just update this primary description accordingly."
-                    >
-                    Limiting text length with CSS used to require dirty hack that made you want to take a shower afterwards. Well, get ready to be squeaky clean with a couple of different modern CSS techniques. In this article, I’m going to do a dive deep into the world of limiting text length with just CSS. We’ll explore how to effectively manage your text display, set maximum character & line lengths, and incorporate the ellipsis property for a clean, readable web design. Ready to become a CSS truncation expert? Let’s get started!
-                    </div>
-                  </div>
-                  <div class="">
-                    <span class="btn btn-primary" id="type-level">High</span>
-                      <span class="btn btn-outline-secondary">Feature</span>
-                  </div>
-                </div>
-              </button>
+              
               <div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="in-progress-tasks">
                 <!-- IN PROGRESS TASKS HERE -->
                 
@@ -125,29 +102,7 @@
               <div class="panel-heading">
                 <h4 class="panel-title">Done (<span id="done-tasks-count">4</span>)</h4>
               </div>
-              <button class="text-start p-1 d-flex">
-                <div class="">
-                  <i class="fas fa-check-circle text-success fs-1 me-2"></i>
-                </div>
-                <div class="">
-                  <div class="fs-3 mb-1 title-box">
-                    Keep all the updated requirements in one place
-                  </div>
-                  <div class="">
-                    <div class="date-box">#3 created in 2022-10-08</div>
-                    <div
-                      class="mb-2 task-box text-break"
-                      title="There is hardly anything more frustrating than having to look for current requirements in tens of comments under the actual description or having to decide which commenter is actually authorized to change the requirements. The goal here is to keep all the up-to-date requirements and details in the main/primary description of a task. Even though the information in comments may affect initial criteria, just update this primary description accordingly."
-                    >
-                    to require you want to take a shower afterwards. Well, get ready to be squeaky clean with a couple of different modern CSS techniques. In this article, I’m going to do a dive deep into the world of limiting text length with just CSS. We’ll explore how to effectively manage your text display, set maximum character & line lengths, and incorporate the ellipsis property for a clean, readable web design. Ready to become a CSS truncation expert? Let’s get started!
-                    </div>
-                  </div>
-                  <div class="">
-                    <span class="btn btn-primary">High</span>
-                      <span class="btn btn-outline-secondary">Feature</span>
-                  </div>
-                </div>
-              </button>
+            
               <div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="done-tasks">
                 <!-- DONE TASKS HERE -->
                
@@ -216,13 +171,13 @@
     <label for="exampleInputEmail1" class="form-label text-capitalize py-2">type</label>
     <div class="form-check">
       
-      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" >
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="feature" >
       <label class="form-check-label py-1" for="flexRadioDefault1">
         Feature
       </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked >
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="bug" >
       <label class="form-check-label py-1" for="flexRadioDefault">
         Bug
       </label>
@@ -308,7 +263,7 @@
       <span class="btn btn-outline-secondary py-2 px-3" id="inputGroup-sizing-sm">Cancel</span>
       <button type="submit" name="delete" class="btn btn-danger task-action-btn" id="task-delete-btn">Delete</a>
         <button type="submit" name="update" class="btn btn-warning task-action-btn" id="task-update-btn" onclick="showItem()">Update</a>
-      <button type="submit" name="save" class="btn btn-primary task-action-btn" id="task-save-btn" onclick="addTask(event)">Save</button>
+      <button type="submit" name="save" class="btn btn-primary task-action-btn" id="task-save-btn" >Save</button>
      
     </div>
     
