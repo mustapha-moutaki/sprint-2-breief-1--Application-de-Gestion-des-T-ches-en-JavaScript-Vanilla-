@@ -1,6 +1,7 @@
 
 
 //parsley validation code
+/*
 $(function() { 
     $('#form').parsley(); //verifiy if the form is valid
     cleanForm();
@@ -14,12 +15,7 @@ $(function() {
         }
     });
 });
-
-
-
-
-
-
+*/
 
 
 //update  task
@@ -77,7 +73,7 @@ function editTask(key) {
     deleteData(key)
   }
   
-  let countId = 0;
+  let countId = localStorage.length;
   
   // Function to get all tasks from localStorage as an array
   function getAllLocalStorageItemsAsArray() {
@@ -136,7 +132,6 @@ function editTask(key) {
                   </div>
               </button>
           `;
-  
           if (task.optionStatus === "1") {
               containerToDo.innerHTML += taskHTML;
           } else if (task.optionStatus === "2") {
@@ -155,7 +150,7 @@ function editTask(key) {
       document.getElementById("selected-option-stu").value = '';
       document.getElementById("dateInput").value = '';
       document.getElementById("description").value = '';
-      $('#form').parsley().reset(); // Reset Parsley validation it;s way when u click on add task  button validation comments invisible
+    //   $('#form').parsley().reset(); // Reset Parsley validation it;s way when u click on add task  button validation comments invisible
 
   }
   

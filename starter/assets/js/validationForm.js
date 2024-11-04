@@ -1,3 +1,5 @@
+// i didn't use this methode for validation in my code, but it's good to know it exists
+
 // Récupération des éléments du DOM
 const form = document.getElementById('form');
 const inputTitle = document.getElementById('inputTitle');
